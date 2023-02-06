@@ -47,7 +47,7 @@ done
 
 if ! [[ $p_id =~ [0-9]+ ]]
 then 
-    echo "[ERROR] Please enter correct arg when launching."
+    echo "[ERROR] -m (mandatory) \ -b (bonus)."
     exit
 fi
 
@@ -261,9 +261,9 @@ fi
 ### Test 4 ###
 if [[ $t4 == 1 || $tm == 1 ]]
 then
-    echo "${L_Green} [Test 4]\tTrying to crash your exhange Server-Client, sending str with 3 000 char (15 times) ${NC}"
+    echo "${L_Green} [Test 4]\tTrying to crash your exhange Server-Client, sending str with 3 000 char (2 times) ${NC}"
 
-    for i in {1..15}
+    for i in {1..2}
     do
         echo -n "${Green} [ ${i} ]${NC}"
         $PATH_TO_CLIENT $p_id "
@@ -309,8 +309,8 @@ fi
 ### Test 6 ###
 if [[ $t6 == 1 || $tb == 1 ]]
 then
-    echo "${L_Green} [Test 6]\tTesting the connexion between server-client, sending str with 5 300 char (10 times)${NC}"
-    for i in {1..10}
+    echo "${L_Green} [Test 6]\tTesting the connexion between server-client, sending [ SUUUUU ] str with 5 300 char (5 times)${NC}"
+    for i in {1..5}
     do
         echo -n "${L_Green} [ ${i} ]${NC}"
         $PATH_TO_CLIENT $p_id "
@@ -359,4 +359,4 @@ then
     done
 fi
 
-echo "If all was corrrectly display on your server terminal: Perfect, good job! 💪"
+echo "\n , good job! 💪💀"

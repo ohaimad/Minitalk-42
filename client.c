@@ -6,7 +6,7 @@
 /*   By: ohaimad <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/01 20:08:45 by ohaimad           #+#    #+#             */
-/*   Updated: 2023/02/05 18:08:20 by ohaimad          ###   ########.fr       */
+/*   Updated: 2023/02/06 13:56:30 by ohaimad          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,28 +17,40 @@
 
 #include "minitalk.h"
 
+
+void    char_to_bin(char *str, int pid)
+{
+        int bit;
+        int i;
+        unsigned char c;
+        
+        bit = 7;
+        i = 0;
+        if (pid <= 0)
+            exit(0);
+        while(str[i])
+        {
+            bit = 7;
+            while(bit >= 0)
+            {
+                c = ((str[i] >> bit) & 1);
+                if (c == 1)
+                    kill(pid, SIGUSR1);
+                else
+                    kill(pid, SIGUSR2);
+                usleep(200);
+                bit--;
+            }
+            i++;
+        }
+}
+
 int main(int ac, char **av)
 {
-    int a;
-    int b;
-    unsigned char x;
     (void)ac;
+    int pid;
 
-    a = 7;
-    b = 0;
-    while(av[2][b])
-    {
-        a = 7;
-        while(a >= 0)
-        {
-            x = ((av[2][b] >> a) & 1);
-            if (x == 1)
-                kill(atoi(av[1]), SIGUSR1);
-            else
-                kill(atoi(av[1]), SIGUSR2);
-            usleep(200);
-            a--;
-        }
-        b++;
-    }
+    pid = atoi(av[1]);
+    char_to_bin(av[2], pid);
+    char_to_bin("\n", pid);
 }
