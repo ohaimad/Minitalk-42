@@ -35,7 +35,7 @@ clean:
 	rm -f $(OBJS) $(BONUS_OBJS)
 
 fclean: clean
-	rm -f $(OBJS) $(CNAME) $(SNAME)
+	rm -f $(CNAME) $(SNAME) $(CNAME_B) $(SNAME_B)
 
 re:  fclean all
 
