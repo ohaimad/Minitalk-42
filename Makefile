@@ -33,7 +33,7 @@ clean:
 	rm -f $(OBJS)
 
 fclean: clean
-	rm -f $(OBJS) 
+	rm -f $(OBJS) $(CNAME) $(SNAME)
 
 re:  fclean all
 

@@ -1,22 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   client.c                                           :+:      :+:    :+:   */
+/*   client_bonus.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ohaimad <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/02/01 20:08:45 by ohaimad           #+#    #+#             */
-/*   Updated: 2023/02/07 15:52:55 by ohaimad          ###   ########.fr       */
+/*   Created: 2023/02/07 15:49:38 by ohaimad           #+#    #+#             */
+/*   Updated: 2023/02/07 15:50:56 by ohaimad          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-/*                    |  _ \|  _ \ / _ \ / ___|/ _ \                          */
-/*                    | | | | |_) | | | | |  _| | | |                         */
-/*                    | |_| |  _ <| |_| | |_| | |_| |                         */
-/*                    |____/|_| \_\\___/ \____|\___/                          */
-
 #include "minitalk.h"
-
 
 void    char_to_bin(char *str, int pid)
 {
@@ -52,10 +46,12 @@ int main(int ac, char **av)
 {
     int pid;
     
-    if (ac != 3)
-         ft_printf("Usage: ./client [ pid ] [ str ]");
-    pid = atoi(av[1]);
-    char_to_bin(av[2], pid);
-    char_to_bin("\n", pid);
-
+    if (ac == 3)
+    {
+        pid = atoi(av[1]);
+        char_to_bin(av[2], pid);
+        char_to_bin("\n", pid);
+    }
+    else
+        ft_printf("Usage: ./client [ pid ] [ str ]");
 }
