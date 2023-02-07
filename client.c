@@ -6,7 +6,7 @@
 /*   By: ohaimad <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/01 20:08:45 by ohaimad           #+#    #+#             */
-/*   Updated: 2023/02/06 13:56:30 by ohaimad          ###   ########.fr       */
+/*   Updated: 2023/02/07 13:25:48 by ohaimad          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,10 +47,14 @@ void    char_to_bin(char *str, int pid)
 
 int main(int ac, char **av)
 {
-    (void)ac;
     int pid;
-
-    pid = atoi(av[1]);
-    char_to_bin(av[2], pid);
-    char_to_bin("\n", pid);
+    
+    if (ac == 3)
+    {
+        pid = atoi(av[1]);
+        char_to_bin(av[2], pid);
+        char_to_bin("\n", pid);
+    }
+    else
+        ft_printf("test");
 }
