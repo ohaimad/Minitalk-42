@@ -6,7 +6,7 @@
 /*   By: ohaimad <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/07 12:28:11 by ohaimad           #+#    #+#             */
-/*   Updated: 2023/02/09 16:39:55 by ohaimad          ###   ########.fr       */
+/*   Updated: 2023/02/09 16:44:21 by ohaimad          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,16 @@ void	reset(int *c, int *bit, int *save, int change)
 	*bit = 0;
 }
 
+void	ft_check(int *check, siginfo_t *src, int a)
+{
+	if (*check == 7)
+		kill(src->si_pid, SIGUSR1);
+	else if (a == SIGUSR2)
+		*check += 1;
+	else if (a == SIGUSR1)
+		*check = 0;
+}
+
 void	ft_pid(int a, siginfo_t *src, void *nun)
 {
 	static int	c;
@@ -45,15 +55,9 @@ void	ft_pid(int a, siginfo_t *src, void *nun)
 	change = src->si_pid;
 	if (save != change)
 		reset(&c, &bit, &save, change);
-	if (check == 7)
-		kill(src->si_pid, SIGUSR1);
-	else if (a == SIGUSR2)
-		check++;
-	else if (a == SIGUSR1)
-		check = 0;
+	ft_check(&check, src, a);
 	c |= (a == SIGUSR1);
-	bit ++;
-	if (bit == 8)
+	if (++bit == 8)
 	{
 		write(1, &c, 1);
 		bit = 0;
