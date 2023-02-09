@@ -6,7 +6,7 @@
 /*   By: ohaimad <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/31 12:55:11 by ohaimad           #+#    #+#             */
-/*   Updated: 2023/02/08 15:45:57 by ohaimad          ###   ########.fr       */
+/*   Updated: 2023/02/09 21:18:12 by ohaimad          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,5 +25,6 @@
 # define RESET "\033[0m"
 
 void	ft_design(void);
+int		ft_atoi(const char *str);
 
 #endif

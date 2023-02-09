@@ -6,11 +6,11 @@
 /*   By: ohaimad <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/07 12:28:11 by ohaimad           #+#    #+#             */
-/*   Updated: 2023/02/09 16:44:21 by ohaimad          ###   ########.fr       */
+/*   Updated: 2023/02/09 21:17:54 by ohaimad          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minitalk_bonus.h"
+#include "minitalk.h"
 
 void	ft_design(void)
 {

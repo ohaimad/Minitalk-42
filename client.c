@@ -6,16 +6,37 @@
 /*   By: ohaimad <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/01 20:08:45 by ohaimad           #+#    #+#             */
-/*   Updated: 2023/02/08 13:43:04 by ohaimad          ###   ########.fr       */
+/*   Updated: 2023/02/09 21:16:45 by ohaimad          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-/*                    |  _ \|  _ \ / _ \ / ___|/ _ \                          */
-/*                    | | | | |_) | | | | |  _| | | |                         */
-/*                    | |_| |  _ <| |_| | |_| | |_| |                         */
-/*                    |____/|_| \_\\___/ \____|\___/                          */
-
 #include "minitalk.h"
+
+int	ft_atoi(const char *str)
+{
+	int		i;
+	int		signe;
+	int		res;
+
+	res = 0;
+	signe = 1;
+	i = 0;
+	while (str[i] == 32 || (str[i] >= 9 && str[i] <= 13))
+		i++;
+	if (str[i] == '+' || str[i] == '-')
+	{
+		if (str[i] == '-')
+			signe *= -1;
+		i++;
+	}
+	while (str[i] >= '0' && str[i] <= '9' && str[i] != '\0')
+	{
+		res = res * 10;
+		res = res + str[i] - '0';
+		i++;
+	}
+	return (res * signe);
+}
 
 void	char_to_bin(char *str, int pid)
 {
@@ -50,7 +71,7 @@ int	main(int ac, char **av)
 
 	if (ac == 3)
 	{
-		pid = atoi(av[1]);
+		pid = ft_atoi(av[1]);
 		char_to_bin(av[2], pid);
 		char_to_bin("\n", pid);
 	}

@@ -9,7 +9,7 @@ SRCS = client.c server.c \
 
 OBJS = $(SRCS:.c=.o)
 
-BONUS_SRCS = server_bonus.c client_bonus.c
+BONUS_SRCS = server_bonus.c client_bonus.c \
 
 BONUS_OBJS = $(BONUS_SRCS:.c=.o)
 
@@ -23,7 +23,7 @@ PRINTF:
 	make -C printf
 
 $(CNAME) : $(OBJS) $(HEADER)
-	$(CC) $(CFLAGS) client.c printf/libftprintf.a -o client
+	$(CC) $(CFLAGS) client.c  printf/libftprintf.a -o client
 
 $(SNAME) : $(OBJS) $(HEADER)
 	$(CC) $(CFLAGS) server.c printf/libftprintf.a -o server
