@@ -6,7 +6,7 @@
 /*   By: ohaimad <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/07 12:28:11 by ohaimad           #+#    #+#             */
-/*   Updated: 2023/02/07 23:03:43 by ohaimad          ###   ########.fr       */
+/*   Updated: 2023/02/09 16:39:55 by ohaimad          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,30 +24,41 @@ void	ft_design(void)
 	ft_printf(BOLD"\t\tYOUR PID IS : %d\n", getpid());
 }
 
+void	reset(int *c, int *bit, int *save, int change)
+{
+	*save = change;
+	*c = 0;
+	*bit = 0;
+}
+
 void	ft_pid(int a, siginfo_t *src, void *nun)
 {
-	static char	c;
+	static int	c;
 	static int	bit;
 	static int	save;
 	static int	change;
+	static int	check;
 
 	(void)nun;
 	if (!save)
 		save = src->si_pid;
 	change = src->si_pid;
 	if (save != change)
-	{
-		save = change;
-		c = 0;
-		bit = 0;
-	}
-	c = c | (a == SIGUSR1);
+		reset(&c, &bit, &save, change);
+	if (check == 7)
+		kill(src->si_pid, SIGUSR1);
+	else if (a == SIGUSR2)
+		check++;
+	else if (a == SIGUSR1)
+		check = 0;
+	c |= (a == SIGUSR1);
 	bit ++;
 	if (bit == 8)
 	{
 		write(1, &c, 1);
 		bit = 0;
 		c = 0;
+		check = 0;
 	}
 	c <<= 1;
 }
