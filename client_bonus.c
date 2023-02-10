@@ -6,37 +6,11 @@
 /*   By: ohaimad <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/07 15:49:38 by ohaimad           #+#    #+#             */
-/*   Updated: 2023/02/09 21:29:20 by ohaimad          ###   ########.fr       */
+/*   Updated: 2023/02/10 20:31:41 by ohaimad          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minitalk.h"
-
-int	ft_atoi(const char *str)
-{
-	int		i;
-	int		signe;
-	int		res;
-
-	res = 0;
-	signe = 1;
-	i = 0;
-	while (str[i] == 32 || (str[i] >= 9 && str[i] <= 13))
-		i++;
-	if (str[i] == '+' || str[i] == '-')
-	{
-		if (str[i] == '-')
-			signe *= -1;
-		i++;
-	}
-	while (str[i] >= '0' && str[i] <= '9' && str[i] != '\0')
-	{
-		res = res * 10;
-		res = res + str[i] - '0';
-		i++;
-	}
-	return (res * signe);
-}
 
 void	sending(int pid)
 {
@@ -57,6 +31,26 @@ void	handling(int a)
 	ft_printf(BOLD GREEN"FAMA 7AJA ");
 }
 
+void	ft_protect(unsigned char c, int pid)
+{
+	if (c == 1)
+	{
+		if (kill(pid, SIGUSR1) == -1)
+		{
+			ft_printf(BOLD RED"invalid PID");
+			exit(0);
+		}
+	}
+	else
+	{
+		if (kill(pid, SIGUSR2) == -1)
+		{
+			ft_printf(BOLD RED"invalid PID");
+			exit(0);
+		}
+	}
+}
+
 void	char_to_bin(char *str, int pid)
 {
 	int				bit;
@@ -73,17 +67,13 @@ void	char_to_bin(char *str, int pid)
 		while (bit >= 0)
 		{
 			c = ((str[i] >> bit) & 1);
-			if (c == 1)
-				kill(pid, SIGUSR1);
-			else
-				kill(pid, SIGUSR2);
+			ft_protect(c, pid);
 			usleep(800);
 			bit--;
 		}
 		i++;
 	}
-	if (str[i - 1] != '\n')
-		sending(pid);
+	sending(pid);
 }
 
 int	main(int ac, char **av)
@@ -95,7 +85,6 @@ int	main(int ac, char **av)
 	{
 		pid = ft_atoi(av[1]);
 		char_to_bin(av[2], pid);
-		char_to_bin("\n", pid);
 	}
 	else
 		ft_printf("Usage: ./client [ pid ] [ str ]");

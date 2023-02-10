@@ -1,30 +1,34 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   minitalk.h                                         :+:      :+:    :+:   */
+/*   ft_atoi.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ohaimad <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/01/31 12:55:11 by ohaimad           #+#    #+#             */
-/*   Updated: 2023/02/10 20:40:32 by ohaimad          ###   ########.fr       */
+/*   Created: 2023/02/10 20:29:59 by ohaimad           #+#    #+#             */
+/*   Updated: 2023/02/10 20:40:59 by ohaimad          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef MINITALK_H
-# define MINITALK_H
+#include "minitalk.h"
 
-# include <signal.h>
-# include <unistd.h>
-# include<stdio.h>
-# include<stdlib.h>
-# include "printf/ft_printf.h"
-# define RED "\033[31m"
-# define GREEN "\033[32m"
-# define YELLOW "\033[33m"
-# define BOLD "\033[1m"
-# define RESET "\033[0m"
+int	ft_atoi(const char *str)
+{
+	int		i;
+	int		res;
 
-void	ft_design(void);
-int		ft_atoi(const char *str);
-
-#endif
+	res = 0;
+	i = 0;
+	while (str[i] >= '0' && str[i] <= '9' && str[i] != '\0')
+	{
+		res = res * 10;
+		res = res + str[i] - '0';
+		i++;
+	}
+	if ((str[i] <= '0' || str[i] >= '9') && str[i] != '\0')
+	{
+		ft_printf(BOLD RED"invalid PID");
+		exit(0);
+	}
+	return (res);
+}

@@ -6,36 +6,30 @@
 /*   By: ohaimad <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/01 20:08:45 by ohaimad           #+#    #+#             */
-/*   Updated: 2023/02/09 21:16:45 by ohaimad          ###   ########.fr       */
+/*   Updated: 2023/02/10 20:31:36 by ohaimad          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minitalk.h"
 
-int	ft_atoi(const char *str)
+void	ft_protect(unsigned char c, int pid)
 {
-	int		i;
-	int		signe;
-	int		res;
-
-	res = 0;
-	signe = 1;
-	i = 0;
-	while (str[i] == 32 || (str[i] >= 9 && str[i] <= 13))
-		i++;
-	if (str[i] == '+' || str[i] == '-')
+	if (c == 1)
 	{
-		if (str[i] == '-')
-			signe *= -1;
-		i++;
+		if (kill(pid, SIGUSR1) == -1)
+		{
+			ft_printf(BOLD RED"invalid PID");
+			exit(0);
+		}
 	}
-	while (str[i] >= '0' && str[i] <= '9' && str[i] != '\0')
+	else
 	{
-		res = res * 10;
-		res = res + str[i] - '0';
-		i++;
+		if (kill(pid, SIGUSR2) == -1)
+		{
+			ft_printf(BOLD RED"invalid PID");
+			exit(0);
+		}
 	}
-	return (res * signe);
 }
 
 void	char_to_bin(char *str, int pid)
@@ -54,11 +48,8 @@ void	char_to_bin(char *str, int pid)
 		while (bit >= 0)
 		{
 			c = ((str[i] >> bit) & 1);
-			if (c == 1)
-				kill(pid, SIGUSR1);
-			else
-				kill(pid, SIGUSR2);
-			usleep(300);
+			ft_protect(c, pid);
+			usleep(800);
 			bit--;
 		}
 		i++;

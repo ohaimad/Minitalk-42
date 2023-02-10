@@ -5,11 +5,11 @@ SNAME_B = server_b
 
 CFLAGS = -Wall -Wextra -Werror
 
-SRCS = client.c server.c \
+SRCS = client.c server.c ft_atoi.c \
 
 OBJS = $(SRCS:.c=.o)
 
-BONUS_SRCS = server_bonus.c client_bonus.c \
+BONUS_SRCS = server_bonus.c client_bonus.c ft_atoi.c \
 
 BONUS_OBJS = $(BONUS_SRCS:.c=.o)
 
@@ -23,10 +23,10 @@ PRINTF:
 	make -C printf
 
 $(CNAME) : $(OBJS) $(HEADER)
-	$(CC) $(CFLAGS) client.c  printf/libftprintf.a -o client
+	$(CC) $(CFLAGS) client.c ft_atoi.c printf/libftprintf.a -o client
 
 $(SNAME) : $(OBJS) $(HEADER)
-	$(CC) $(CFLAGS) server.c printf/libftprintf.a -o server
+	$(CC) $(CFLAGS) server.c ft_atoi.c printf/libftprintf.a -o server
 
 %.o : %.c $(HEADER)
 	$(CC) $(CFLAGS) -c $<
@@ -42,7 +42,7 @@ re:  fclean all
 bonus : PRINTF $(CNAME_B) $(SNAME_B)
 
 $(CNAME_B) : $(BONUS_OBJS) $(HEADER)
-	$(CC) $(CFLAGS) client_bonus.c printf/libftprintf.a -o client_b
+	$(CC) $(CFLAGS) client_bonus.c ft_atoi.c printf/libftprintf.a -o client_b
 
 $(SNAME_B) : $(BONUS_OBJS) $(HEADER)
-	$(CC) $(CFLAGS) server_bonus.c printf/libftprintf.a -o server_b
+	$(CC) $(CFLAGS) server_bonus.c ft_atoi.c printf/libftprintf.a -o server_b
