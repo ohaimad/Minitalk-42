@@ -6,7 +6,7 @@
 /*   By: ohaimad <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/07 12:28:11 by ohaimad           #+#    #+#             */
-/*   Updated: 2023/02/09 21:17:54 by ohaimad          ###   ########.fr       */
+/*   Updated: 2023/02/10 22:29:44 by ohaimad          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,7 @@ void	ft_pid(int a, siginfo_t *src, void *nun)
 	if (save != change)
 		reset(&c, &bit, &save, change);
 	ft_check(&check, src, a);
-	c |= (a == SIGUSR1);
+	c = c | (a == SIGUSR1);
 	if (++bit == 8)
 	{
 		write(1, &c, 1);
@@ -72,8 +72,6 @@ int	main(void)
 	struct sigaction	sig;
 
 	sig.sa_sigaction = ft_pid;
-	sig.sa_flags = SA_SIGINFO;
-	sigemptyset(&sig.sa_mask);
 	ft_design();
 	while (1)
 	{

@@ -6,7 +6,7 @@
 /*   By: ohaimad <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/02 21:56:47 by ohaimad           #+#    #+#             */
-/*   Updated: 2023/02/09 19:55:48 by ohaimad          ###   ########.fr       */
+/*   Updated: 2023/02/12 18:16:09 by ohaimad          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,8 +57,6 @@ int	main(void)
 	struct sigaction	sig;
 
 	sig.sa_sigaction = ft_pid;
-	sig.sa_flags = SA_SIGINFO;
-	sigemptyset(&sig.sa_mask);
 	ft_design();
 	while (1)
 	{

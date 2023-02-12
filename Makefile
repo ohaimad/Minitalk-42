@@ -5,44 +5,62 @@ SNAME_B = server_b
 
 CFLAGS = -Wall -Wextra -Werror
 
-SRCS = client.c server.c ft_atoi.c \
+SRCS_C = client.c ft_atoi.c \
 
-OBJS = $(SRCS:.c=.o)
+SRCS_S = server.c ft_atoi.c \
 
-BONUS_SRCS = server_bonus.c client_bonus.c ft_atoi.c \
+OBJS_C = $(SRCS_C:.c=.o)
 
-BONUS_OBJS = $(BONUS_SRCS:.c=.o)
+OBJS_S = $(SRCS_S:.c=.o)
+
+BONUS_SRCS_C = client_bonus.c ft_atoi.c \
+
+BONUS_SRCS_S = server_bonus.c ft_atoi.c \
+
+BONUS_OBJS_C = $(BONUS_SRCS_C:.c=.o)
+
+BONUS_OBJS_S = $(BONUS_SRCS_S:.c=.o)
 
 HEADER = minitalk.h
 
-all: PRINTF $(CNAME) $(SNAME)
+NAME = minitalk
+
+PRINTF = printf/libftprintf.a
+
+all: $(NAME)
+
+$(NAME): $(PRINTF) $(CNAME) $(SNAME)
 
 CC = cc
 
-PRINTF:
+$(PRINTF):
 	make -C printf
 
-$(CNAME) : $(OBJS) $(HEADER)
-	$(CC) $(CFLAGS) client.c ft_atoi.c printf/libftprintf.a -o client
+$(CNAME) : $(OBJS_C) $(HEADER)
+	$(CC) $(CFLAGS) $(PRINTF) client.c ft_atoi.c  -o client
 
-$(SNAME) : $(OBJS) $(HEADER)
-	$(CC) $(CFLAGS) server.c ft_atoi.c printf/libftprintf.a -o server
+$(SNAME) : $(OBJS_S) $(HEADER)
+	$(CC) $(CFLAGS) $(PRINTF) server.c ft_atoi.c  -o server
 
 %.o : %.c $(HEADER)
 	$(CC) $(CFLAGS) -c $<
 
-clean: 
-	rm -f $(OBJS) $(BONUS_OBJS)
+clean:
+	make clean -C printf
+	rm -f $(OBJS_C) $(OBJS_S) $(BONUS_OBJS_C) $(BONUS_OBJS_S)
 
 fclean: clean
+	make fclean -C printf
 	rm -f $(CNAME) $(SNAME) $(CNAME_B) $(SNAME_B)
 
 re:  fclean all
 
-bonus : PRINTF $(CNAME_B) $(SNAME_B)
+bonus : $(PRINTF) $(CNAME_B) $(SNAME_B)
 
-$(CNAME_B) : $(BONUS_OBJS) $(HEADER)
-	$(CC) $(CFLAGS) client_bonus.c ft_atoi.c printf/libftprintf.a -o client_b
+$(CNAME_B) : $(BONUS_OBJS_C) $(HEADER)
+	$(CC) $(CFLAGS) $(PRINTF) client_bonus.c ft_atoi.c  -o client_b
 
-$(SNAME_B) : $(BONUS_OBJS) $(HEADER)
-	$(CC) $(CFLAGS) server_bonus.c ft_atoi.c printf/libftprintf.a -o server_b
+$(SNAME_B) : $(BONUS_OBJS_S) $(HEADER)
+	$(CC) $(CFLAGS) $(PRINTF) server_bonus.c ft_atoi.c  -o server_b
+
+.PHONY = all $(NAME) bonus clean fclean re

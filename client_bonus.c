@@ -6,7 +6,7 @@
 /*   By: ohaimad <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/07 15:49:38 by ohaimad           #+#    #+#             */
-/*   Updated: 2023/02/10 20:31:41 by ohaimad          ###   ########.fr       */
+/*   Updated: 2023/02/12 03:00:19 by ohaimad          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ void	sending(int pid)
 void	handling(int a)
 {
 	(void) a;
-	ft_printf(BOLD GREEN"FAMA 7AJA ");
+	ft_printf(BOLD GREEN"RECU ");
 }
 
 void	ft_protect(unsigned char c, int pid)
